@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner"
+					   creationComplete="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import org.flexunit.listeners.UIListener;
+			import org.flexunit.runner.FlexUnitCore;
+			
+			import test.TestSuiteAll;
+
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				// FlexUnitCoreインスタンスを作成する
+				var core:FlexUnitCore=new FlexUnitCore();
+
+				// GUI表示させる場合は、専用のリスナーを追加する
+				core.addListener(new UIListener(testRunner));
+
+				// テストを実行するrunメソッドで、引数に作成したテストクラスを指定する
+				// こっちはテストクラスを単体で実施
+				//core.run(CalculateTest);
+				// こっちはテストスイートを実施
+				core.run(TestSuiteAll);
+			}
+		]]>
+	</fx:Script>
+	<flexUnitUIRunner:TestRunnerBase id="testRunner"
+									 width="100%"
+									 height="100%"/>
+</s:WindowedApplication>
